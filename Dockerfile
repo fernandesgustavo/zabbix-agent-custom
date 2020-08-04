@@ -5,8 +5,7 @@ LABEL developer="Gustavo Fernandes"
 #COPY . /etc/zabbix/zabbix-agent.d/
 
 # Dependências necessárias para o cx_Oracle
-# Instala o Python3.6 e adiciona como default para o ambiente
-RUN yum install -y python3 && \
-ln -fs /usr/bin/python3.6 /usr/bin/python
+# Instala o Python3.6
+RUN yum install -y python3 &&
 
 #CMD python /app/app.py
