@@ -2,7 +2,9 @@ FROM zabbix/zabbix-agent:centos-3.4.11
 
 LABEL developer="Gustavo Fernandes"
 
-#COPY . /etc/zabbix/zabbix-agent.d/
+# Copia os arquivos para o diretorio temporario
+COPY ./oracle/ /tmp
+COPY ./requirements.txt /tmp
 
 # Dependencias necessarias para o cx_Oracle
 # Repositorio para o pip
@@ -12,6 +14,11 @@ yum install -y python3 && \
 # Instala o pip
 yum install -y python-pip && \
 # Instala as dependencias do script
-pip3 install -r requirements.txt
-
-#CMD python /app/app.py
+pip3 install -r /tmp/requirements.txt && \
+# Instala o Instant Client 19
+yum install -y /tmp/oracle-instantclient19.8-basic-19.8.0.0.0-1.x86_64.rpm && \
+# Remove o pacote Instant client 19 e o arquivo requirements.txt
+rm -rf /tmp/oracle* && \
+rm -rf /tmp/requirements.txt && \
+# Limpa o cache do yum
+yum clean all
