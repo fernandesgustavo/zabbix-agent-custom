@@ -4,10 +4,12 @@ LABEL developer="Gustavo Fernandes"
 
 #COPY . /etc/zabbix/zabbix-agent.d/
 
-# Dependências necessárias para o cx_Oracle
+# Dependencias necessarias para o cx_Oracle
+# Repositorio para o pip
+RUN yum install -y epel-release && \
 # Instala o Python3.6
+yum install -y python3 && \
 # Instala o pip
-RUN yum install -y python3 && \
 yum install -y python-pip
 
 #CMD python /app/app.py
