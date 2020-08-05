@@ -6,6 +6,9 @@ LABEL developer="Gustavo Fernandes"
 COPY ./oracle/ /tmp
 COPY ./requirements.txt /tmp
 
+# Variaveis utilizadas
+ENV TZ=America/Sao_Paulo
+
 # Dependencias necessarias para o cx_Oracle
 # Repositorio para o pip
 RUN yum install -y epel-release && \
@@ -13,6 +16,8 @@ RUN yum install -y epel-release && \
 yum install -y python3 && \
 # Instala o pip
 yum install -y python-pip && \
+# Configura o timezone
+ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
 # Instala as dependencias do script
 pip3 install -r /tmp/requirements.txt && \
 # Instala o Instant Client 19
